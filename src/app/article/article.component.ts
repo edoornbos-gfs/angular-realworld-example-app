@@ -38,7 +38,7 @@ export class ArticleComponent implements OnInit {
     this.route.data.subscribe(
       (data: { article: Article }) => {
         this.article = data.article;
-
+        this.articlesService.addToSessionSet(data.article.slug);
         // Load the comments on this article
         this.populateComments();
       }

@@ -36,6 +36,7 @@ export class ArticlesService {
   }
 
   get(slug): Observable<Article> {
+    this.sessionSet.next({articleIds: new Set<String>(this.sessionSet.value.articleIds)})
     return this.apiService.get('/articles/' + slug)
       .pipe(map(data => data.article));
   }
@@ -65,4 +66,8 @@ export class ArticlesService {
     return this.apiService.delete('/articles/' + slug + '/favorite');
   }
 
+  addToSessionSet(slug) {
+    return this.sessionSet.next({
+      articleIds: new Set<String>(this.sessionSet.value.articleIds).add(slug)});
+  }
 }
