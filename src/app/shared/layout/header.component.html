@@ -29,6 +29,12 @@
         </a>
       </li>
 
+      <li class="nav-item">
+          <p class="nav-link">
+            Articles read: 
+            {{ currentSessionSet.articleIds.size }}
+        </p>
+      </li>
     </ul>
 
     <!-- Show this for logged in users -->
@@ -67,6 +73,13 @@
           <img [src]="currentUser.image" *ngIf="currentUser.image" class="user-pic" />
           {{ currentUser.username }}
         </a>
+      </li>
+
+      <li class="nav-item">
+        <p class="nav-link">
+          Articles read: 
+          {{ sessionSet.articleIds.size }}
+      </p>
       </li>
 
     </ul>
