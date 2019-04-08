@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { ApiService } from './api.service';
 import { Article, ArticleListConfig } from '../models';
 import { map } from 'rxjs/operators';
+import { SessionSet } from '../models';
+
 
 @Injectable()
 export class ArticlesService {
+
+  public sessionSet = new BehaviorSubject<SessionSet>({} as SessionSet);
+
   constructor (
     private apiService: ApiService
-  ) {}
+  ) {
+    this.sessionSet.next({articleIds: new Set<String>()});
+  }
 
   query(config: ArticleListConfig): Observable<{articles: Article[], articlesCount: number}> {
     // Convert any filters over to Angular's URLSearchParams
@@ -57,6 +64,5 @@ export class ArticlesService {
   unfavorite(slug): Observable<Article> {
     return this.apiService.delete('/articles/' + slug + '/favorite');
   }
-
 
 }
